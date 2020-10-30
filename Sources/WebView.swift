@@ -17,11 +17,11 @@ struct WebView: UIViewRepresentable {
         case didRecieveAuthChallange(URLAuthenticationChallenge, (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
         
         //Optional
-        case didStartProvisionalNavigation(WKNavigation)
-        case didReceiveServerRedirectForProvisionalNavigation(WKNavigation)
+        case didStartProvisional(WKNavigation)
+        case didReceiveServerRedirectForProvisional(WKNavigation)
         case didCommit(WKNavigation)
         case didFinish(WKNavigation)
-        case didFailProvisionalNavigation(WKNavigation, Error)
+        case didFailProvisional(WKNavigation, Error)
         case didFail(WKNavigation, Error)
     }
 
@@ -68,16 +68,16 @@ extension WebView.Coordinator: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation) {
-        action(.didStartProvisionalNavigation(navigation))
+        action(.didStartProvisional(navigation))
     }
 
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation) {
-        action(.didReceiveServerRedirectForProvisionalNavigation(navigation))
+        action(.didReceiveServerRedirectForProvisional(navigation))
 
     }
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation, withError error: Error) {
-        action(.didFailProvisionalNavigation(navigation, error))
+        action(.didFailProvisional(navigation, error))
     }
 
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation) {
