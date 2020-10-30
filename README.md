@@ -9,24 +9,25 @@ import SwiftUI
 import WebView
 
 struct ContentView: View {
-    @State var urlRequest: URLRequest?
-
+    var uRLRequest = URLRequest(url: URL(string: "https://www.google.com/")!)
+    
     var body: some View {
-         WebView(uRLRequest: $urlRequest) { action in
-              handleAction(action)
-         }
+        WebView(uRLRequest: .constant(uRLRequest)) { action in
+            handleAction(action)
+        }
     }
-
+    
     private func handleAction(_ action: WebView.NavigationAction) {
         switch action {
         case .decidePolicy(_, let handlerAction):
-             handlerAction(.allow)
+            handlerAction(.allow)
         case .didRecieveAuthChallange(_, let completionHandler):
             completionHandler(.performDefaultHandling, nil)
         case .didFail(_, let error):
-             debugPrint(error)
+            debugPrint(error)
         default:
-             break
+            break
+        }
     }
 }
 ```
